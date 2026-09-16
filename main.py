@@ -3,11 +3,11 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/message")
+@app.get("/message/")
 def read_root():
     return {"Hello": "Saket"}
 
-@app.get("/Name")
+@app.get("/Name/")
 def read_root():
     return{"Hello":"Rama"}
 
