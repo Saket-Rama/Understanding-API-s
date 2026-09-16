@@ -3,13 +3,13 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/message/")
+@app.get("/message")
 def read_root():
     return {"Hello": "Saket"}
 
-@app.get("/Name/")
+@app.get("/name")
 def read_root():
-    return{"Hello":"Rama"}
+    return {"Hello":"Rama"}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str | None = None):
