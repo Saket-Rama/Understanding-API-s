@@ -3,6 +3,13 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
+dict = {
+    "1": "Saket",   
+    "2": "Rama",
+    "3": "Krishna",
+    "4": "Vishnu"
+}
+
 @app.get("/message")
 def read_root():
     return {"Hello": "Saket"}
