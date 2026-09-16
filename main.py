@@ -12,7 +12,7 @@ dict = {
 
 @app.get("/message")
 def read_root():
-    return {"Hello": "Saket"}
+    return dict
 
 @app.get("/name")
 def read_root():
