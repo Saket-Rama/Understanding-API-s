@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 app = FastAPI()
 
@@ -17,6 +17,10 @@ def read_root():
 @app.get("/name")
 def read_root():
     return {"Hello":"Rama"}
+
+@app.post("/getname")
+def read_root(request: Request):
+    return {"Hello":"Vikram"}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str | None = None):
