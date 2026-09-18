@@ -42,13 +42,13 @@
     }
 
     async function loadItems() {
-      const response = await fetch("/message");
+      const response = await fetch("http://127.0.0.1:8000/message");
       render(await response.json());
     }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const response = await fetch("/postname", {
+      const response = await fetch("http://127.0.0.1:8000/postname", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
