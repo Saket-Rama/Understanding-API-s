@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FastAPI Items</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    input, button { padding: 8px; font: inherit; }
+    input { flex: 1 1 160px; }
+    button { cursor: pointer; }
+    li { margin: 6px 0; }
+    #status { color: #555; }
+  </style>
+</head>
+<body>
+  <h1>FastAPI Items</h1>
+
+  <form id="item-form">
+    <input id="key" name="key" placeholder="Key" required>
+    <input id="value" name="value" placeholder="Value" required>
+    <button type="submit">Add item</button>
+  </form>
+
+  <p id="status">Loading items...</p>
+  <ul id="items"></ul>
+
+  <script>
+    const form = document.querySelector("#item-form");
+    const items = document.querySelector("#items");
+    const status = document.querySelector("#status");
+
+    function render(data) {
+      items.innerHTML = "";
+      Object.entries(data).forEach(([key, value]) => {
+        const item = document.createElement("li");
+        item.textContent = `${key}: ${value}`;
+        items.appendChild(item);
+      });
+      status.textContent = `${Object.keys(data).length} item(s)`;
+    }
+
+    async function loadItems() {
+      const response = await fetch("/message");
+      render(await response.json());
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const response = await fetch("/postname", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          key: document.querySelector("#key").value,
+          value: document.querySelector("#value").value
+        })
+      });
+      render(await response.json());
+      form.reset();
+    });
+
+    loadItems();
+  </script>
+</body>
+</html>

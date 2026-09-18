@@ -1,7 +1,11 @@
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 app = FastAPI()
+BASE_DIR = Path(__file__).parent
 
 
 dt = {
@@ -15,6 +19,11 @@ dt = {
 class Item(BaseModel):
     key: str
     value: str
+
+
+@app.get("/", include_in_schema=False)
+def home():
+    return FileResponse(BASE_DIR / "index.html")
 
 @app.get("/message")
 def read_root():
