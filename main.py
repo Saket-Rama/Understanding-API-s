@@ -18,8 +18,9 @@ def read_root():
 def read_root():
     return {"Hello":"Rama"}
 
-@app.post("/getname")
+@app.post("/postname")
 def read_root(request: Request):
+    print(request)
     return {"Hello":"Vikram"}
 
 @app.get("/items/{item_id}")
