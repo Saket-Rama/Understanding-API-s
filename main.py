@@ -1,27 +1,33 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
 
-dict = {
+dt = {
     "1": "Saket",   
     "2": "Rama",
     "3": "Krishna",
     "4": "Vishnu"
 }
 
+
+class Item(BaseModel):
+    key: str
+    value: str
+
 @app.get("/message")
 def read_root():
-    return dict
+    return dt
 
 @app.get("/name")
 def read_root():
     return {"Hello":"Rama"}
 
 @app.post("/postname")
-def read_root(request: Request):
-    print(request)
-    return {"Hello":"Vikram"}
+def add_item(item: Item):
+    dt[item.key] = item.value
+    return dt
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str | None = None):
